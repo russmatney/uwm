@@ -1,8 +1,10 @@
-const Builder = @import("std").build.Builder;
+const Build = @import("std").build;
 
-pub fn build(b: *Builder) void {
-    var exe = b.addExecutable("uwm", "src/main.zig");
-    exe.addIncludeDir("/usr/include/");
+pub fn build(b: *Build) void {
+    var exe = b.addExecutable(Build.ExecutableOptions{.name="uwm"});
+    exe.setExecCmd(&[_]?[]const u8{"uwm", "src/main.zig"});
+    // var step = b.addTranslateC(.{});
+    // step.addIncludeDir("/usr/include/");
     exe.linkSystemLibrary("c");
     exe.linkSystemLibrary("x11");
     exe.linkSystemLibrary("xinerama");
